@@ -1,163 +1,97 @@
-const rawData = [
-    { id: "REG-2025-001", date: "2025-02-14", year: "2025", category: "Operasional Poin A", desc: "Alokasi Pemeliharaan Rutin Sarana", budget: 350000000, status: "SELESAI" },
-    { id: "REG-2025-002", date: "2025-05-20", year: "2025", category: "Operasional Poin B", desc: "Pengadaan Material & Fasilitas Poin B", budget: 780000000, status: "SELESAI" },
-    { id: "REG-2025-003", date: "2025-09-10", year: "2025", category: "Logistik & Distribusi", desc: "Distribusi Armada Semester II", budget: 420000000, status: "PROSES" },
-    { id: "REG-2025-004", date: "2025-11-05", year: "2025", category: "Operasional Poin A", desc: "Evaluasi Sistem Periodik Akhir Tahun", budget: 150000000, status: "SELESAI" },
-    { id: "REG-2026-001", date: "2026-01-18", year: "2026", category: "Operasional Poin A", desc: "Pengembangan Infrastruktur Tahap I", budget: 950000000, status: "PROSES" },
-    { id: "REG-2026-002", date: "2026-03-22", year: "2026", category: "Operasional Poin B", desc: "Peningkatan Kapasitas SDM & Sistem", budget: 310000000, status: "SELESAI" },
-    { id: "REG-2026-003", date: "2026-06-12", year: "2026", category: "Logistik & Distribusi", desc: "Peremajaan Perangkat Operasional", budget: 640000000, status: "PROSES" },
-    { id: "REG-2026-004", date: "2026-07-30", year: "2026", category: "Operasional Poin B", desc: "Audit Teknis Berkala Lapangan", budget: 125000000, status: "PENDING" }
+// DATA MASTER SISWA FORMAT SHEET 8355
+let dataSiswa8355 = [
+    { nisn: "0081122334", nama: "Ahmad Rizky Pratama", gender: "L", kelas: "Kelas X-A", ttl: "Pontianak, 14 Januari 2008", status: "AKTIF" },
+    { nisn: "0084455667", nama: "Siti Nurhaliza", gender: "P", kelas: "Kelas X-A", ttl: "Pontianak, 20 Mei 2008", status: "AKTIF" },
+    { nisn: "0079988776", nama: "Budi Santoso", gender: "L", kelas: "Kelas X-B", ttl: "Mempawah, 05 Agustus 2007", status: "AKTIF" },
+    { nisn: "0083344551", nama: "Dewi Anggraini", gender: "P", kelas: "Kelas XI-A", ttl: "Kubut Raya, 12 Oktober 2008", status: "MUTASI MASUK" },
+    { nisn: "0071122445", nama: "Muhammad Fikri", gender: "L", kelas: "Kelas XII-A", ttl: "Pontianak, 02 Februari 2007", status: "AKTIF" }
 ];
 
-let lineChartObj = null;
-let doughnutChartObj = null;
-
-function formatRupiah(number) {
-    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
-}
-
-function renderTable(data) {
-    const tbody = document.getElementById("tableBody");
+function renderTable8355(data) {
+    const tbody = document.getElementById("tableSiswaBody");
     tbody.innerHTML = "";
 
-    if(data.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-muted); padding: 20px;">Tidak ada data yang sesuai filter.</td></tr>`;
+    if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-muted); padding: 20px;">Tidak ada data siswa yang sesuai filter.</td></tr>`;
         return;
     }
 
-    data.forEach(item => {
-        let badgeClass = "badge-info";
-        if (item.status === "SELESAI") badgeClass = "badge-success";
-        if (item.status === "PENDING") badgeClass = "badge-warning";
+    data.forEach((item, index) => {
+        let badgeClass = "badge-success";
+        if (item.status === "MUTASI MASUK") badgeClass = "badge-info";
+        if (item.status === "MUTASI KELUAR") badgeClass = "badge-warning";
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td><strong>${item.id}</strong></td>
-            <td>${item.date}</td>
-            <td>${item.category}</td>
-            <td>${item.desc}</td>
-            <td>${formatRupiah(item.budget)}</td>
+            <td>${index + 1}</td>
+            <td><strong>${item.nisn}</strong></td>
+            <td>${item.nama}</td>
+            <td><strong>${item.gender}</strong></td>
+            <td>${item.kelas}</td>
+            <td>${item.ttl}</td>
             <td><span class="badge ${badgeClass}">${item.status}</span></td>
         `;
         tbody.appendChild(tr);
     });
+
+    updateKPI(data);
 }
 
-function initCharts() {
-    const ctxLine = document.getElementById('lineChart').getContext('2d');
-    lineChartObj = new Chart(ctxLine, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-            datasets: [
-                {
-                    label: 'Tren 2025',
-                    data: [30, 45, 55, 60, 48, 70, 65, 80, 75, 85, 90, 95],
-                    borderColor: '#64748b',
-                    backgroundColor: 'transparent',
-                    borderWidth: 2,
-                    tension: 0.2
-                },
-                {
-                    label: 'Tren 2026',
-                    data: [50, 65, 70, 82, 90, 95, 105, 110, null, null, null, null],
-                    borderColor: '#0284c7',
-                    backgroundColor: 'transparent',
-                    borderWidth: 2,
-                    borderDash: [5, 5],
-                    tension: 0.2
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } } }
-            },
-            scales: {
-                x: { grid: { display: false } },
-                y: { grid: { color: '#e2e8f0' } }
-            }
-        }
-    });
+function updateKPI(data) {
+    const total = data.length;
+    const laki = data.filter(s => s.gender === "L").length;
+    const perempuan = data.filter(s => s.gender === "P").length;
 
-    const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
-    doughnutChartObj = new Chart(ctxDoughnut, {
-        type: 'doughnut',
-        data: {
-            labels: ['Operasional A', 'Operasional B', 'Logistik'],
-            datasets: [{
-                data: [45, 35, 20],
-                backgroundColor: ['#1e293b', '#0284c7', '#94a3b8'],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom', labels: { boxWidth: 12, font: { family: 'Inter', size: 11 } } }
-            }
-        }
-    });
+    document.getElementById("kpiTotalSiswa").innerText = `${total} Siswa`;
+    document.getElementById("kpiTotalLaki").innerText = `${laki} Siswa`;
+    document.getElementById("kpiTotalPerempuan").innerText = `${perempuan} Siswa`;
 }
 
 function applyFilters() {
-    const yearVal = document.getElementById("filterYear").value;
-    const catVal = document.getElementById("filterCategory").value;
+    const kelasVal = document.getElementById("filterKelas").value;
+    const genderVal = document.getElementById("filterGender").value;
     const searchVal = document.getElementById("searchKeyword").value.toLowerCase();
 
-    const filtered = rawData.filter(item => {
-        const matchYear = (yearVal === "ALL" || item.year === yearVal);
-        const matchCat = (catVal === "ALL" || item.category === catVal);
-        const matchSearch = item.desc.toLowerCase().includes(searchVal) || item.id.toLowerCase().includes(searchVal);
-        return matchYear && matchCat && matchSearch;
+    const filtered = dataSiswa8355.filter(item => {
+        const matchKelas = (kelasVal === "ALL" || item.kelas === kelasVal);
+        const matchGender = (genderVal === "ALL" || item.gender === genderVal);
+        const matchSearch = item.nama.toLowerCase().includes(searchVal) || item.nisn.toLowerCase().includes(searchVal);
+        return matchKelas && matchGender && matchSearch;
     });
 
-    renderTable(filtered);
-
-    const totalBudget = filtered.reduce((sum, i) => sum + i.budget, 0);
-    document.getElementById("kpiTotalBudget").innerText = formatRupiah(totalBudget);
-    document.getElementById("kpiTotalVolume").innerText = `${filtered.length} Berkas`;
+    renderTable8355(filtered);
 }
 
-// FUNGSI INPUT DATA BARU
-function handleAddData(event) {
+function handleAddSiswa(event) {
     event.preventDefault();
 
-    const id = document.getElementById("inputID").value.trim();
-    const date = document.getElementById("inputDate").value;
-    const year = date ? date.split("-")[0] : new Date().getFullYear().toString();
-    const category = document.getElementById("inputCategory").value;
-    const budget = parseFloat(document.getElementById("inputBudget").value) || 0;
+    const nisn = document.getElementById("inputNISN").value.trim();
+    const nama = document.getElementById("inputNama").value.trim();
+    const gender = document.getElementById("inputGender").value;
+    const kelas = document.getElementById("inputKelas").value;
+    const ttl = document.getElementById("inputTTL").value.trim();
     const status = document.getElementById("inputStatus").value;
-    const desc = document.getElementById("inputDesc").value.trim();
 
-    const newItem = { id, date, year, category, desc, budget, status };
+    const newSiswa = { nisn, nama, gender, kelas, ttl, status };
 
-    // Sisipkan data baru ke posisi paling atas
-    rawData.unshift(newItem);
-
-    // Refresh tabel & KPI
+    dataSiswa8355.unshift(newSiswa);
     applyFilters();
 
-    // Reset Form
-    document.getElementById("dataForm").reset();
-
-    alert("Sistem: Data registrasi baru berhasil ditambahkan!");
+    document.getElementById("formSiswa8355").reset();
+    alert("Sistem: Data siswa berhasil ditambahkan ke Sheet 8355!");
 }
 
-function printPage() {
-    window.print();
+function switchTab(tabId) {
+    document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
+    document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+
+    document.getElementById(`view-${tabId}`).classList.add("active");
+    event.currentTarget.classList.add("active");
 }
 
-function saveData() {
-    alert("Sistem: Rekapitulasi data berhasil tersimpan.");
-}
+function printPage() { window.print(); }
+function saveData() { alert("Sistem: Form 8355 berhasil tersimpan."); }
 
 window.onload = () => {
-    renderTable(rawData);
-    initCharts();
-    applyFilters();
+    renderTable8355(dataSiswa8355);
 };
