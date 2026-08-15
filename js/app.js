@@ -122,6 +122,32 @@ function applyFilters() {
     document.getElementById("kpiTotalVolume").innerText = `${filtered.length} Berkas`;
 }
 
+// FUNGSI INPUT DATA BARU
+function handleAddData(event) {
+    event.preventDefault();
+
+    const id = document.getElementById("inputID").value.trim();
+    const date = document.getElementById("inputDate").value;
+    const year = date ? date.split("-")[0] : new Date().getFullYear().toString();
+    const category = document.getElementById("inputCategory").value;
+    const budget = parseFloat(document.getElementById("inputBudget").value) || 0;
+    const status = document.getElementById("inputStatus").value;
+    const desc = document.getElementById("inputDesc").value.trim();
+
+    const newItem = { id, date, year, category, desc, budget, status };
+
+    // Sisipkan data baru ke posisi paling atas
+    rawData.unshift(newItem);
+
+    // Refresh tabel & KPI
+    applyFilters();
+
+    // Reset Form
+    document.getElementById("dataForm").reset();
+
+    alert("Sistem: Data registrasi baru berhasil ditambahkan!");
+}
+
 function printPage() {
     window.print();
 }

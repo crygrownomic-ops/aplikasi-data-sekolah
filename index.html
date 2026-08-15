@@ -1,4 +1,4 @@
-a<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -30,6 +30,7 @@ a<!DOCTYPE html>
 
     <div class="container">
 
+        <!-- FILTER BAR -->
         <div class="filter-panel">
             <div class="filter-group">
                 <label for="filterYear">Periode Tahun:</label>
@@ -56,6 +57,7 @@ a<!DOCTYPE html>
             </div>
         </div>
 
+        <!-- KPI GRID -->
         <div class="kpi-grid">
             <div class="kpi-card blue">
                 <div class="kpi-label">Total Volume Transaksi</div>
@@ -79,6 +81,7 @@ a<!DOCTYPE html>
             </div>
         </div>
 
+        <!-- GRAFIK SECTION -->
         <div class="chart-grid">
             <div class="card-box">
                 <div class="card-header">
@@ -99,6 +102,55 @@ a<!DOCTYPE html>
             </div>
         </div>
 
+        <!-- PANEL FORM INPUT DATA -->
+        <div class="card-box" style="margin-bottom: 24px;">
+            <div class="card-header">
+                <h2>Input Registrasi Data Baru</h2>
+            </div>
+            <form id="dataForm" onsubmit="handleAddData(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="inputID">ID Registrasi</label>
+                        <input type="text" id="inputID" placeholder="Contoh: REG-2026-005" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDate">Tanggal Peristiwa</label>
+                        <input type="date" id="inputDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCategory">Kategori Unit</label>
+                        <select id="inputCategory" required>
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="Operasional Poin A">Operasional Poin A</option>
+                            <option value="Operasional Poin B">Operasional Poin B</option>
+                            <option value="Logistik & Distribusi">Logistik & Distribusi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputBudget">Nilai Anggaran (IDR)</label>
+                        <input type="number" id="inputBudget" placeholder="Contoh: 250000000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputStatus">Status Realisasi</label>
+                        <select id="inputStatus" required>
+                            <option value="SELESAI">SELESAI</option>
+                            <option value="PROSES">PROSES</option>
+                            <option value="PENDING">PENDING</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="inputDesc">Uraian Keterangan Data</label>
+                        <input type="text" id="inputDesc" placeholder="Ketik ringkasan uraian operasional..." required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="reset" class="btn-reset">Batal / Reset</button>
+                    <button type="submit" class="btn-submit">Simpan ke Tabel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TABEL DATA -->
         <div class="card-box">
             <div class="card-header">
                 <h2>Rincian Tabel Data Operasional (2025-2026)</h2>
