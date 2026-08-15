@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <!-- FORM INPUT ENTRY DENGAN DROPDOWN PENULISAN KODE OTOMATIS -->
+        <!-- FORM INPUT ENTRY DENGAN FIELD LENGKAP -->
         <div class="card-box" style="margin-bottom: 24px;">
             <div class="card-header">
                 <h2>Form Entry Input Data Siswa (Format 8355)</h2>
@@ -126,7 +126,17 @@
                         </select>
                     </div>
 
-                    <!-- DROPDOWN PEKERJAAN AYAH & IBU -->
+                    <!-- NAMA ORANG TUA -->
+                    <div class="form-group">
+                        <label>Nama Ayah</label>
+                        <input type="text" id="inAyah" placeholder="Nama Lengkap Ayah" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Ibu</label>
+                        <input type="text" id="inIbu" placeholder="Nama Lengkap Ibu" required>
+                    </div>
+
+                    <!-- DROPDOWN PEKERJAAN -->
                     <div class="form-group">
                         <label>Pekerjaan Ayah</label>
                         <select id="inPkjAyah" required>
@@ -162,7 +172,7 @@
                         </select>
                     </div>
 
-                    <!-- DROPDOWN PENDIDIKAN AYAH & IBU -->
+                    <!-- DROPDOWN PENDIDIKAN -->
                     <div class="form-group">
                         <label>Pendidikan Ayah</label>
                         <select id="inPdkAyah" required>
@@ -192,7 +202,7 @@
                         </select>
                     </div>
 
-                    <!-- DROPDOWN PENGHASILAN AYAH & IBU -->
+                    <!-- DROPDOWN PENGHASILAN -->
                     <div class="form-group">
                         <label>Penghasilan Ayah</label>
                         <select id="inPghAyah" required>
@@ -214,6 +224,20 @@
                             <option value="E">E - Rp 2.000.000 - Rp 4.999.999</option>
                             <option value="F">F - >= Rp 5.000.000</option>
                         </select>
+                    </div>
+
+                    <!-- INFORMASI PELENGKAP (SAUDARA, STTB, TAHUN) -->
+                    <div class="form-group">
+                        <label>Jumlah Saudara</label>
+                        <input type="number" id="inSaudara" placeholder="Contoh: 0" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>No STTB</label>
+                        <input type="text" id="inSTTB" placeholder="Contoh: 0 / DN-01..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tahun STTB</label>
+                        <input type="text" id="inTahun" placeholder="Contoh: 0 / 2024" required>
                     </div>
 
                     <div class="form-group full-width">

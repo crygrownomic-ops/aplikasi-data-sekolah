@@ -76,7 +76,9 @@ function handleAddSiswa(event) {
         tgl: document.getElementById("inTglLahir").value,
         gender: document.getElementById("inGender").value,
         agama: document.getElementById("inAgama").value,
-        ayah: "", ibu: "", dom: "0",
+        ayah: document.getElementById("inAyah").value.trim().toUpperCase(),
+        ibu: document.getElementById("inIbu").value.trim().toUpperCase(),
+        dom: "0",
         pkjA: document.getElementById("inPkjAyah").value,
         pkjI: document.getElementById("inPkjIbu").value,
         pdkA: document.getElementById("inPdkAyah").value,
@@ -84,13 +86,15 @@ function handleAddSiswa(event) {
         pghA: document.getElementById("inPghAyah").value,
         pghI: document.getElementById("inPghIbu").value,
         alamat: document.getElementById("inAlamat").value.trim(),
-        saudar: 0, sttb: 0, thn: 0
+        saudar: document.getElementById("inSaudara").value || "0",
+        sttb: document.getElementById("inSTTB").value.trim() || "0",
+        thn: document.getElementById("inTahun").value.trim() || "0"
     };
 
     sample8355Data.push(newSiswa);
     applyFilters();
     document.getElementById("form8355").reset();
-    alert("Sistem: Data siswa berhasil ditambahkan dengan opsi Dropdown!");
+    alert("Sistem: Data siswa lengkap berhasil ditambahkan ke Format 8355!");
 }
 
 function printPage() { window.print(); }
