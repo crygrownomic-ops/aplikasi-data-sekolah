@@ -236,8 +236,7 @@ header {
     font-size: 0.825rem;
 }
 
-/* OTOMATIS TAMPILKAN HURUF KAPITAL SAAT DIKETIK */
-#inNama, #inAlamat, #inTempatLahir, #inAyah, #inIbu, #inKelas, #inSTTB, #searchKeyword {
+#inNama, #inAlamat, #inTempatLahir, #inAyah, #inIbu, #inKelas, #inSTTB, #inDomisili, #searchKeyword {
     text-transform: uppercase;
 }
 
@@ -294,14 +293,13 @@ header {
 .table-8355 td {
     padding: 6px 8px;
     border: 1px solid var(--border-light);
-    text-align: center; /* Default rata tengah untuk angka, kode, tanggal */
+    text-align: center;
 }
 
-/* KHUSUS NAMA PESERTA DIDIK & ALAMAT: RATA KIRI & KAPITAL */
-.table-8355 td:nth-child(6),  /* Kolom Nama Peserta Didik di Tabel Utama */
-.table-8355 td:nth-child(20), /* Kolom Alamat di Tabel Utama */
-.table-8355 td:nth-child(5),  /* Kolom Nama Peserta Didik di Tabel Preview */
-.table-8355 td:nth-child(19), /* Kolom Alamat di Tabel Preview */
+.table-8355 td:nth-child(6),
+.table-8355 td:nth-child(20),
+.table-8355 td:nth-child(5),
+.table-8355 td:nth-child(19),
 .text-left-uppercase {
     text-align: left !important;
     text-transform: uppercase !important;

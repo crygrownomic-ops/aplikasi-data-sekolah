@@ -87,7 +87,7 @@ function renderTable8355(data) {
     document.getElementById("countTotal").innerText = data.length;
 }
 
-// FUNGSI UPDATE PRATINJAU LANGSUNG (LIVE PREVIEW HASIL KAPITAL & RATA KIRI)
+// UPDATE PRATINJAU DENGAN KOLOM DOMISILI DYNAMIC
 function updatePreview() {
     const previewRow = document.getElementById("previewRow");
     if (!previewRow) return;
@@ -102,6 +102,7 @@ function updatePreview() {
     const agama = document.getElementById("inAgama").value || "-";
     const ayah = document.getElementById("inAyah").value.trim().toUpperCase() || "-";
     const ibu = document.getElementById("inIbu").value.trim().toUpperCase() || "-";
+    const dom = document.getElementById("inDomisili").value.trim().toUpperCase() || "0";
     const pkjA = document.getElementById("inPkjAyah").value || "-";
     const pkjI = document.getElementById("inPkjIbu").value || "-";
     const pdkA = document.getElementById("inPdkAyah").value || "-";
@@ -125,7 +126,7 @@ function updatePreview() {
         <td>${agama}</td>
         <td>${ayah}</td>
         <td>${ibu}</td>
-        <td>0</td>
+        <td>${dom}</td>
         <td>${pkjA}</td>
         <td>${pkjI}</td>
         <td>${pdkA}</td>
@@ -159,6 +160,7 @@ function editSiswa(index) {
     document.getElementById("inAgama").value = item.agama;
     document.getElementById("inAyah").value = item.ayah;
     document.getElementById("inIbu").value = item.ibu;
+    document.getElementById("inDomisili").value = item.dom;
     document.getElementById("inPkjAyah").value = item.pkjA;
     document.getElementById("inPkjIbu").value = item.pkjI;
     document.getElementById("inPdkAyah").value = item.pdkA;
@@ -204,7 +206,7 @@ function handleSaveSiswa(event) {
         agama: document.getElementById("inAgama").value,
         ayah: document.getElementById("inAyah").value.trim().toUpperCase(),
         ibu: document.getElementById("inIbu").value.trim().toUpperCase(),
-        dom: "0",
+        dom: document.getElementById("inDomisili").value.trim().toUpperCase() || "0",
         pkjA: document.getElementById("inPkjAyah").value,
         pkjI: document.getElementById("inPkjIbu").value,
         pdkA: document.getElementById("inPdkAyah").value,

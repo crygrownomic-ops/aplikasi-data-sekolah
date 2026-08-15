@@ -159,7 +159,7 @@
 
         </div>
 
-        <!-- TAB 2: FORM INPUT DATA SISWA TERPISAH DENGAN LIVE PREVIEW -->
+        <!-- TAB 2: FORM INPUT DATA SISWA TERPISAH -->
         <div id="view-input" class="tab-view">
             <div class="card-box" style="margin-bottom: 24px;">
                 <div class="card-header">
@@ -214,6 +214,12 @@
                             <input type="text" id="inIbu" placeholder="Nama Lengkap Ibu" required>
                         </div>
 
+                        <!-- KOLOM DOMISILI INPUT TAMBAHAN -->
+                        <div class="form-group">
+                            <label>Domisili</label>
+                            <input type="text" id="inDomisili" placeholder="Contoh: 0 / Dalam Kota" required>
+                        </div>
+
                         <div class="form-group">
                             <label>Pekerjaan Ayah</label>
                             <select id="inPkjAyah" required></select>
@@ -266,7 +272,7 @@
                 </form>
             </div>
 
-            <!-- CARD PRATINJAU LANGSUNG (LIVE PREVIEW) -->
+            <!-- LIVE PREVIEW HASIL INPUT -->
             <div class="card-box">
                 <div class="card-header">
                     <h2>Pratinjau Hasil Input (Live Preview Format 8355)</h2>
@@ -307,7 +313,6 @@
                         </thead>
                         <tbody>
                             <tr id="previewRow" style="background-color: #f0f9ff;">
-                                <!-- Ditembak otomatis oleh JavaScript saat mengetik -->
                             </tr>
                         </tbody>
                     </table>
