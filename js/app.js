@@ -1,4 +1,3 @@
-// DATA MASTER SISWA & DATA MASTER KODE MANDIRI
 let sample8355Data = [
     { kelas: "VII C", nis: "7772", nisn: "0124588785", nama: "ADRIELL ALVARISNO NATALAGA", tmpt: "Pontianak", tgl: "2012-11-09", gender: "L", agama: "B", ayah: "NATALAGA", ibu: "MARIA", dom: "0", pkjA: "I", pkjI: "K", pdkA: "C", pdkI: "C", pghA: "C", pghI: "A", alamat: "JL. KEBANGKITAN NASIONAL GG. BANTILANKARYA, Rt. 1, Rw. 4", saudar: 0, sttb: 0, thn: 0 },
     { kelas: "VII C", nis: "7773", nisn: "0137942439", nama: "ALVIN PRATISTA AGNI", tmpt: "Pontianak", tgl: "2013-04-09", gender: "L", agama: "D", ayah: "AGNI", ibu: "LISA", dom: "0", pkjA: "G", pkjI: "A", pdkA: "A", pdkI: "D", pghA: "C", pghI: "A", alamat: "GG. TELUK SAHANG 2, Rt. 5, Rw. 3, Kel. Siantan Hilir", saudar: 0, sttb: 0, thn: 0 }
@@ -31,7 +30,6 @@ let masterKode = {
     ]
 };
 
-// NAVIGASI TAB
 function switchView(tabId) {
     document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -40,7 +38,6 @@ function switchView(tabId) {
     event.currentTarget.classList.add("active");
 }
 
-// RENDER TABEL UTAMA & AKSI EDIT/HAPUS
 function renderTable8355(data) {
     const tbody = document.getElementById("tableBody8355");
     tbody.innerHTML = "";
@@ -89,7 +86,58 @@ function renderTable8355(data) {
     document.getElementById("countTotal").innerText = data.length;
 }
 
-// EDIT & HAPUS DATA SISWA
+// FUNGSI UPDATE PRATINJAU LANGSUNG (LIVE PREVIEW)
+function updatePreview() {
+    const previewRow = document.getElementById("previewRow");
+    if (!previewRow) return;
+
+    const kelas = document.getElementById("inKelas").value.trim() || "-";
+    const nis = document.getElementById("inNIS").value.trim() || "-";
+    const nisn = document.getElementById("inNISN").value.trim() || "-";
+    const nama = document.getElementById("inNama").value.trim().toUpperCase() || "[NAMA PESERTA DIDIK]";
+    const tmpt = document.getElementById("inTempatLahir").value.trim() || "-";
+    const tgl = document.getElementById("inTglLahir").value || "-";
+    const gender = document.getElementById("inGender").value || "L";
+    const agama = document.getElementById("inAgama").value || "-";
+    const ayah = document.getElementById("inAyah").value.trim().toUpperCase() || "-";
+    const ibu = document.getElementById("inIbu").value.trim().toUpperCase() || "-";
+    const pkjA = document.getElementById("inPkjAyah").value || "-";
+    const pkjI = document.getElementById("inPkjIbu").value || "-";
+    const pdkA = document.getElementById("inPdkAyah").value || "-";
+    const pdkI = document.getElementById("inPdkIbu").value || "-";
+    const pghA = document.getElementById("inPghAyah").value || "-";
+    const pghI = document.getElementById("inPghIbu").value || "-";
+    const alamat = document.getElementById("inAlamat").value.trim() || "-";
+    const saudar = document.getElementById("inSaudara").value || "0";
+    const sttb = document.getElementById("inSTTB").value.trim() || "0";
+    const thn = document.getElementById("inTahun").value.trim() || "0";
+
+    previewRow.innerHTML = `
+        <td><span class="badge badge-info" style="font-size:0.65rem;">PRATINJAU</span></td>
+        <td>${kelas}</td>
+        <td>${nis}</td>
+        <td>${nisn}</td>
+        <td><strong>${nama}</strong></td>
+        <td>${tmpt}</td>
+        <td>${tgl}</td>
+        <td><strong>${gender}</strong></td>
+        <td>${agama}</td>
+        <td>${ayah}</td>
+        <td>${ibu}</td>
+        <td>0</td>
+        <td>${pkjA}</td>
+        <td>${pkjI}</td>
+        <td>${pdkA}</td>
+        <td>${pdkI}</td>
+        <td>${pghA}</td>
+        <td>${pghI}</td>
+        <td>${alamat}</td>
+        <td>${saudar}</td>
+        <td>${sttb}</td>
+        <td>${thn}</td>
+    `;
+}
+
 function deleteSiswa(index) {
     if (confirm(`Hapus data siswa: ${sample8355Data[index].nama}?`)) {
         sample8355Data.splice(index, 1);
@@ -124,7 +172,8 @@ function editSiswa(index) {
     document.getElementById("formTitle").innerText = "Edit Data Siswa (Format 8355)";
     document.getElementById("btnSubmitForm").innerText = "Update Data Siswa";
 
-    // Pindah otomatis ke Tab Form Input
+    updatePreview();
+
     document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     document.getElementById("view-input").classList.add("active");
@@ -136,6 +185,7 @@ function resetFormSiswa() {
     document.getElementById("editIndex").value = "-1";
     document.getElementById("formTitle").innerText = "Form Input Data Siswa (Format 8355)";
     document.getElementById("btnSubmitForm").innerText = "Simpan Data Siswa";
+    updatePreview();
 }
 
 function handleSaveSiswa(event) {
@@ -177,17 +227,14 @@ function handleSaveSiswa(event) {
     resetFormSiswa();
     applyFilters();
 
-    // Pindah kembali ke Tab Tabel Utama
     document.querySelectorAll(".tab-view").forEach(v => v.classList.remove("active"));
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     document.getElementById("view-tabel").classList.add("active");
     document.querySelectorAll(".tab-btn")[0].classList.add("active");
 }
 
-// MANAGEMENT MASTER KODE MANDIRI
 function renderMasterKode() {
     ['agama', 'pekerjaan', 'pendidikan', 'penghasilan'].forEach(cat => {
-        // Render List di Dashboard Master Kode
         const ul = document.getElementById(`list_${cat}`);
         ul.innerHTML = masterKode[cat].map((item, i) => `
             <li>
@@ -196,7 +243,6 @@ function renderMasterKode() {
             </li>
         `).join('');
 
-        // Render Legenda Footer Tabel 8355
         const legEl = document.getElementById(`legend${cat.charAt(0).toUpperCase() + cat.slice(1)}`);
         if (legEl) {
             legEl.innerHTML = masterKode[cat].map(item => `${item.code} = ${item.label}`).join(', ');
@@ -265,4 +311,5 @@ function saveData() { alert("Sistem: Data Lembar Induk Format 8355 berhasil disi
 window.onload = () => {
     renderMasterKode();
     renderTable8355(sample8355Data);
+    updatePreview();
 };

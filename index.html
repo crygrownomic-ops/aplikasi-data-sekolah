@@ -40,7 +40,6 @@
         <!-- TAB 1: DASHBOARD & TABEL UTAMA 8355 -->
         <div id="view-tabel" class="tab-view active">
             
-            <!-- FILTER BAR -->
             <div class="filter-panel">
                 <div class="filter-group">
                     <label for="filterKelas">Filter Kelas:</label>
@@ -65,7 +64,6 @@
                 </div>
             </div>
 
-            <!-- KPI STATISTIK -->
             <div class="kpi-grid">
                 <div class="kpi-card blue">
                     <div class="kpi-label">Siswa Laki-Laki (L)</div>
@@ -84,7 +82,6 @@
                 </div>
             </div>
 
-            <!-- TABEL 8355 LENGKAP DENGAN AKSI EDIT & HAPUS -->
             <div class="card-box">
                 <div class="card-header">
                     <h2>LEMBAR INDUK SISWA FORMAT 8355</h2>
@@ -129,7 +126,6 @@
                     </table>
                 </div>
 
-                <!-- FOOTER KETERANGAN KODE & TANDA TANGAN -->
                 <div class="footer-8355">
                     <div class="kode-legend">
                         <h4>KETERANGAN KODE (OTOMATIS TERHUBUNG MASTER):</h4>
@@ -163,13 +159,13 @@
 
         </div>
 
-        <!-- TAB 2: FORM INPUT DATA SISWA TERPISAH -->
+        <!-- TAB 2: FORM INPUT DATA SISWA TERPISAH DENGAN LIVE PREVIEW -->
         <div id="view-input" class="tab-view">
-            <div class="card-box">
+            <div class="card-box" style="margin-bottom: 24px;">
                 <div class="card-header">
                     <h2 id="formTitle">Form Input Data Siswa (Format 8355)</h2>
                 </div>
-                <form id="form8355" onsubmit="handleSaveSiswa(event)">
+                <form id="form8355" onsubmit="handleSaveSiswa(event)" oninput="updatePreview()">
                     <input type="hidden" id="editIndex" value="-1">
                     <div class="form-grid">
                         <div class="form-group">
@@ -204,7 +200,6 @@
                             </select>
                         </div>
 
-                        <!-- DROPDOWN DARI MASTER KODE -->
                         <div class="form-group">
                             <label>Agama</label>
                             <select id="inAgama" required></select>
@@ -270,6 +265,54 @@
                     </div>
                 </form>
             </div>
+
+            <!-- CARD PRATINJAU LANGSUNG (LIVE PREVIEW) -->
+            <div class="card-box">
+                <div class="card-header">
+                    <h2>Pratinjau Hasil Input (Live Preview Format 8355)</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="table-8355">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">STATUS</th>
+                                <th rowspan="2">KELAS</th>
+                                <th rowspan="2">NIS</th>
+                                <th rowspan="2">NISN</th>
+                                <th rowspan="2">NAMA PESERTA DIDIK</th>
+                                <th rowspan="2">TEMPAT LAHIR</th>
+                                <th rowspan="2">TANGGAL LAHIR</th>
+                                <th rowspan="2">L/P</th>
+                                <th rowspan="2">AGAMA</th>
+                                <th colspan="2">NAMA ORANG TUA</th>
+                                <th rowspan="2">DOMISILI</th>
+                                <th colspan="2">PEKERJAAN</th>
+                                <th colspan="2">PENDIDIKAN</th>
+                                <th colspan="2">PENGHASILAN</th>
+                                <th rowspan="2">ALAMAT</th>
+                                <th rowspan="2">JLH SAUDARA</th>
+                                <th rowspan="2">NO STTB</th>
+                                <th rowspan="2">TAHUN</th>
+                            </tr>
+                            <tr>
+                                <th>AYAH</th>
+                                <th>IBU</th>
+                                <th>AYAH</th>
+                                <th>IBU</th>
+                                <th>AYAH</th>
+                                <th>IBU</th>
+                                <th>AYAH</th>
+                                <th>IBU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="previewRow" style="background-color: #f0f9ff;">
+                                <!-- Ditembak otomatis oleh JavaScript saat mengetik -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- TAB 3: DASHBOARD KELOLA KETERANGAN KODE MANDIRI -->
@@ -283,7 +326,6 @@
                 </p>
 
                 <div class="kode-manager-grid">
-                    <!-- KELOLA AGAMA -->
                     <div class="kode-card">
                         <h3>1. Kode Agama</h3>
                         <form onsubmit="handleSaveKode(event, 'agama')" class="mini-form">
@@ -294,7 +336,6 @@
                         <ul id="list_agama" class="kode-list"></ul>
                     </div>
 
-                    <!-- KELOLA PEKERJAAN -->
                     <div class="kode-card">
                         <h3>2. Kode Pekerjaan</h3>
                         <form onsubmit="handleSaveKode(event, 'pekerjaan')" class="mini-form">
@@ -305,7 +346,6 @@
                         <ul id="list_pekerjaan" class="kode-list"></ul>
                     </div>
 
-                    <!-- KELOLA PENDIDIKAN -->
                     <div class="kode-card">
                         <h3>3. Kode Pendidikan</h3>
                         <form onsubmit="handleSaveKode(event, 'pendidikan')" class="mini-form">
@@ -316,7 +356,6 @@
                         <ul id="list_pendidikan" class="kode-list"></ul>
                     </div>
 
-                    <!-- KELOLA PENGHASILAN -->
                     <div class="kode-card">
                         <h3>4. Kode Penghasilan</h3>
                         <form onsubmit="handleSaveKode(event, 'penghasilan')" class="mini-form">
