@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Eksekutif Terpadu Data 2025-2026</title>
+    <title>Sistem Data Nominatif Siswa (Form 8355)</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,35 +13,18 @@
 <body>
 
     <div class="app-layout">
-        <!-- SIDEBAR NAVIGASI UNTUK 41 SHEET -->
+        <!-- SIDEBAR UTAMA -->
         <aside class="sidebar">
             <div class="sidebar-brand">
-                <h2>SISTEM DATA 2025–2026</h2>
-                <p>Manajemen Terpadu 41 Sheet</p>
+                <h2>APLIKASI DATA SEKOLAH</h2>
+                <p>Modul Utama Format 8355</p>
             </div>
 
             <nav class="sidebar-nav">
-                <div class="nav-section-label">UTAMA</div>
-                <button class="nav-item active" onclick="switchTab('dashboard')">Dashboard Ringkasan</button>
-
-                <div class="nav-section-label">MODUL I: DATA MASTER</div>
-                <button class="nav-item" onclick="switchTab('sheet_master_1')">Sheet 01 - Registrasi Utama</button>
-                <button class="nav-item" onclick="switchTab('sheet_master_2')">Sheet 02 - Data Personil/Unit</button>
-                <button class="nav-item" onclick="switchTab('sheet_master_3')">Sheet 03 - Klasifikasi Sarana</button>
-
-                <div class="nav-section-label">MODUL II: KEUANGAN</div>
-                <button class="nav-item" onclick="switchTab('sheet_keuangan_1')">Sheet 09 - Alokasi Anggaran</button>
-                <button class="nav-item" onclick="switchTab('sheet_keuangan_2')">Sheet 10 - Realisasi Anggaran</button>
-                <button class="nav-item" onclick="switchTab('sheet_keuangan_3')">Sheet 11 - Audit Keuangan</button>
-
-                <div class="nav-section-label">MODUL III: OPERASIONAL</div>
-                <button class="nav-item" onclick="switchTab('sheet_ops_1')">Sheet 19 - Logistik & Perangkat</button>
-                <button class="nav-item" onclick="switchTab('sheet_ops_2')">Sheet 20 - Distribusi Wilayah</button>
-                <button class="nav-item" onclick="switchTab('sheet_ops_3')">Sheet 21 - Pemeliharaan Rutin</button>
-
-                <div class="nav-section-label">MODUL IV: REKAPITULASI</div>
-                <button class="nav-item" onclick="switchTab('sheet_rekap_1')">Sheet 31 - Evaluasi Akhir</button>
-                <button class="nav-item" onclick="switchTab('sheet_rekap_2')">Sheet 41 - Arsip Konsolidasi</button>
+                <div class="nav-section-label">MODUL SHEET 8355</div>
+                <button class="nav-item active" onclick="switchTab('nominatif')">Data Nominatif Siswa (8355)</button>
+                <button class="nav-item" onclick="switchTab('rekapitulasi')">Rekapitulasi L / P per Kelas</button>
+                <button class="nav-item" onclick="switchTab('mutasi')">Catatan Mutasi Siswa</button>
             </nav>
         </aside>
 
@@ -50,14 +33,14 @@
             <!-- HEADER -->
             <header>
                 <div class="header-title">
-                    <h1 id="pageTitle">Dashboard Ringkasan Eksekutif</h1>
-                    <p id="pageSubTitle">Pengolahan Data Multi-Sheet Terintegrasi Periode 2025–2026</p>
+                    <h1 id="pageTitle">Laporan Bulanan Data Siswa (Format 8355)</h1>
+                    <p id="pageSubTitle">Rekapitulasi Nominatif Siswa & Statistik Operasional Sekolah</p>
                 </div>
                 <div class="header-actions">
                     <!-- HANYA ICON PRINT & SAVE -->
                     <button class="btn-action" onclick="printPage()">
                         <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-                        Cetak Laporan
+                        Cetak Format 8355
                     </button>
                     <button class="btn-action" onclick="saveData()">
                         <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
@@ -67,94 +50,151 @@
             </header>
 
             <div class="container">
-                <!-- VIEW 1: DASHBOARD RINGKASAN -->
-                <div id="view-dashboard" class="tab-view active">
+                <!-- VIEW 1: DATA NOMINATIF 8355 -->
+                <div id="view-nominatif" class="tab-view active">
+                    
+                    <!-- FILTER DATA SISWA -->
                     <div class="filter-panel">
                         <div class="filter-group">
-                            <label for="filterYear">Periode Tahun:</label>
-                            <select id="filterYear" onchange="applyFilters()">
-                                <option value="ALL">Semua (2025 - 2026)</option>
-                                <option value="2025">Tahun 2025</option>
-                                <option value="2026">Tahun 2026</option>
+                            <label for="filterKelas">Filter Kelas / Rombel:</label>
+                            <select id="filterKelas" onchange="applyFilters()">
+                                <option value="ALL">Semua Kelas</option>
+                                <option value="Kelas X-A">Kelas X-A</option>
+                                <option value="Kelas X-B">Kelas X-B</option>
+                                <option value="Kelas XI-A">Kelas XI-A</option>
+                                <option value="Kelas XII-A">Kelas XII-A</option>
                             </select>
                         </div>
+
                         <div class="filter-group">
-                            <label for="searchKeyword">Cari Data:</label>
-                            <input type="text" id="searchKeyword" placeholder="Ketik kata kunci..." onkeyup="applyFilters()">
+                            <label for="filterGender">Jenis Kelamin:</label>
+                            <select id="filterGender" onchange="applyFilters()">
+                                <option value="ALL">Semua (L & P)</option>
+                                <option value="L">Laki-Laki (L)</option>
+                                <option value="P">Perempuan (P)</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="searchKeyword">Cari Nama / NISN:</label>
+                            <input type="text" id="searchKeyword" placeholder="Ketik NISN atau Nama..." onkeyup="applyFilters()">
                         </div>
                     </div>
 
+                    <!-- RINGKASAN STATISTIK 8355 -->
                     <div class="kpi-grid">
                         <div class="kpi-card blue">
-                            <div class="kpi-label">Total Volume Transaksi</div>
-                            <div class="kpi-value" id="kpiTotalVolume">0 Berkas</div>
-                            <div class="kpi-subtext">Akumulasi 41 Sheet</div>
+                            <div class="kpi-label">Total Peserta Didik</div>
+                            <div class="kpi-value" id="kpiTotalSiswa">0 Siswa</div>
+                            <div class="kpi-subtext">Akumulasi Format 8355</div>
                         </div>
                         <div class="kpi-card green">
-                            <div class="kpi-label">Total Anggaran Terpakai</div>
-                            <div class="kpi-value" id="kpiTotalBudget">Rp 0</div>
-                            <div class="kpi-subtext">Efisiensi Capaian 94.2%</div>
+                            <div class="kpi-label">Siswa Laki-Laki (L)</div>
+                            <div class="kpi-value" id="kpiTotalLaki">0 Siswa</div>
+                            <div class="kpi-subtext">Rasio Gender Terdaftar</div>
                         </div>
                         <div class="kpi-card amber">
-                            <div class="kpi-label">Rata-Rata Kinerja Bulanan</div>
-                            <div class="kpi-value">88,4 %</div>
-                            <div class="kpi-subtext">Standar Target Terpenuhi</div>
+                            <div class="kpi-label">Siswa Perempuan (P)</div>
+                            <div class="kpi-value" id="kpiTotalPerempuan">0 Siswa</div>
+                            <div class="kpi-subtext">Rasio Gender Terdaftar</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">Status Form 8355</div>
+                            <div class="kpi-value" style="font-size: 1.1rem; color: var(--accent-green);">VALID & SELESAI</div>
+                            <div class="kpi-subtext">Terverifikasi Sistem</div>
                         </div>
                     </div>
 
-                    <div class="chart-grid">
-                        <div class="card-box">
-                            <div class="card-header">
-                                <h2>Tren Perkembangan Data (2025 vs 2026)</h2>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="lineChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="card-box">
-                            <div class="card-header">
-                                <h2>Proporsi Distribusi Wilayah</h2>
-                            </div>
-                            <div class="chart-container">
-                                <canvas id="doughnutChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VIEW DINAMIS UNTUK SHEET LAINNYA -->
-                <div id="view-sheet-content" class="tab-view">
-                    <!-- PANEL FORM INPUT METADATA SHEET -->
+                    <!-- FORM INPUT SISWA FORMAT 8355 -->
                     <div class="card-box" style="margin-bottom: 24px;">
                         <div class="card-header">
-                            <h2 id="formSheetTitle">Form Input Entry Data Baru</h2>
+                            <h2>Form Input Data Siswa (Entry Sheet 8355)</h2>
                         </div>
-                        <form id="dynamicForm" onsubmit="handleDynamicSubmit(event)">
-                            <div class="form-grid" id="dynamicFormFields">
-                                <!-- Ditembak via JavaScript sesuai struktur Sheet -->
+                        <form id="formSiswa8355" onsubmit="handleAddSiswa(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="inputNISN">NISN / NIS</label>
+                                    <input type="text" id="inputNISN" placeholder="Contoh: 0081234567" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputNama">Nama Lengkap Siswa</label>
+                                    <input type="text" id="inputNama" placeholder="Nama lengkap sesuai ijazah" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputGender">Jenis Kelamin</label>
+                                    <select id="inputGender" required>
+                                        <option value="L">Laki-Laki (L)</option>
+                                        <option value="P">Perempuan (P)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputKelas">Tingkat / Kelas</label>
+                                    <select id="inputKelas" required>
+                                        <option value="Kelas X-A">Kelas X-A</option>
+                                        <option value="Kelas X-B">Kelas X-B</option>
+                                        <option value="Kelas XI-A">Kelas XI-A</option>
+                                        <option value="Kelas XII-A">Kelas XII-A</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputTTL">Tempat, Tanggal Lahir</label>
+                                    <input type="text" id="inputTTL" placeholder="Contoh: Pontianak, 12 Mei 2008" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputStatus">Status Siswa</label>
+                                    <select id="inputStatus" required>
+                                        <option value="AKTIF">AKTIF</option>
+                                        <option value="MUTASI MASUK">MUTASI MASUK</option>
+                                        <option value="MUTASI KELUAR">MUTASI KELUAR</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-actions">
-                                <button type="reset" class="btn-reset">Batal / Reset</button>
-                                <button type="submit" class="btn-submit">Simpan ke Sheet Ini</button>
+                                <button type="reset" class="btn-reset">Reset Form</button>
+                                <button type="submit" class="btn-submit">Simpan ke Sheet 8355</button>
                             </div>
                         </form>
                     </div>
 
-                    <!-- TABEL DATA METADATA SHEET -->
+                    <!-- TABEL NOMINATIF SISWA 8355 -->
                     <div class="card-box">
                         <div class="card-header">
-                            <h2 id="tableSheetTitle">Rincian Data Sheet</h2>
+                            <h2>Tabel Nominatif Siswa (Sheet 8355)</h2>
                         </div>
                         <div class="table-wrapper">
-                            <table id="dynamicTable">
-                                <thead id="dynamicThead">
-                                    <!-- Header Tabel Ditembak via JS -->
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>NISN / NIS</th>
+                                        <th>Nama Lengkap Siswa</th>
+                                        <th>L/P</th>
+                                        <th>Kelas / Rombel</th>
+                                        <th>Tempat, Tanggal Lahir</th>
+                                        <th>Status Siswa</th>
+                                    </tr>
                                 </thead>
-                                <tbody id="dynamicTbody">
-                                    <!-- Isi Tabel Ditembak via JS -->
+                                <tbody id="tableSiswaBody">
+                                    <!-- Diisi via JavaScript -->
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+
+                </div>
+
+                <!-- VIEW 2 & 3 UNTUK REKAP & MUTASI -->
+                <div id="view-rekapitulasi" class="tab-view">
+                    <div class="card-box">
+                        <div class="card-header"><h2>Rekapitulasi Jumlah Siswa per Kelas</h2></div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Menu rekapitulasi data statistik L/P otomatis dibuat dari Sheet 8355.</p>
+                    </div>
+                </div>
+
+                <div id="view-mutasi" class="tab-view">
+                    <div class="card-box">
+                        <div class="card-header"><h2>Catatan Mutasi Siswa (Masuk / Keluar)</h2></div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Modul pencatatan mutasi siswa bulanan.</p>
                     </div>
                 </div>
 
