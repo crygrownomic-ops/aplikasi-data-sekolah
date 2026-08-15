@@ -204,7 +204,7 @@ header {
     text-transform: uppercase;
 }
 
-/* FORM STYLES */
+/* FORM STYLES & AUTO-KAPITAL INPUT */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -236,6 +236,11 @@ header {
     font-size: 0.825rem;
 }
 
+/* OTOMATIS TAMPILKAN HURUF KAPITAL SAAT DIKETIK */
+#inNama, #inAlamat, #inTempatLahir, #inAyah, #inIbu, #inKelas, #inSTTB, #searchKeyword {
+    text-transform: uppercase;
+}
+
 .form-actions {
     display: flex;
     gap: 12px;
@@ -265,7 +270,7 @@ header {
     cursor: pointer;
 }
 
-/* TABEL & AKSI EDIT/HAPUS */
+/* TABEL FORMAT 8355 PRESISI */
 .table-wrapper {
     overflow-x: auto;
 }
@@ -289,7 +294,18 @@ header {
 .table-8355 td {
     padding: 6px 8px;
     border: 1px solid var(--border-light);
-    text-align: center;
+    text-align: center; /* Default rata tengah untuk angka, kode, tanggal */
+}
+
+/* KHUSUS NAMA PESERTA DIDIK & ALAMAT: RATA KIRI & KAPITAL */
+.table-8355 td:nth-child(6),  /* Kolom Nama Peserta Didik di Tabel Utama */
+.table-8355 td:nth-child(20), /* Kolom Alamat di Tabel Utama */
+.table-8355 td:nth-child(5),  /* Kolom Nama Peserta Didik di Tabel Preview */
+.table-8355 td:nth-child(19), /* Kolom Alamat di Tabel Preview */
+.text-left-uppercase {
+    text-align: left !important;
+    text-transform: uppercase !important;
+    padding-left: 10px !important;
 }
 
 .btn-row-edit {

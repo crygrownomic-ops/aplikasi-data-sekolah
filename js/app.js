@@ -1,6 +1,7 @@
 let sample8355Data = [
-    { kelas: "VII C", nis: "7772", nisn: "0124588785", nama: "ADRIELL ALVARISNO NATALAGA", tmpt: "Pontianak", tgl: "2012-11-09", gender: "L", agama: "B", ayah: "NATALAGA", ibu: "MARIA", dom: "0", pkjA: "I", pkjI: "K", pdkA: "C", pdkI: "C", pghA: "C", pghI: "A", alamat: "JL. KEBANGKITAN NASIONAL GG. BANTILANKARYA, Rt. 1, Rw. 4", saudar: 0, sttb: 0, thn: 0 },
-    { kelas: "VII C", nis: "7773", nisn: "0137942439", nama: "ALVIN PRATISTA AGNI", tmpt: "Pontianak", tgl: "2013-04-09", gender: "L", agama: "D", ayah: "AGNI", ibu: "LISA", dom: "0", pkjA: "G", pkjI: "A", pdkA: "A", pdkI: "D", pghA: "C", pghI: "A", alamat: "GG. TELUK SAHANG 2, Rt. 5, Rw. 3, Kel. Siantan Hilir", saudar: 0, sttb: 0, thn: 0 }
+    { kelas: "VII C", nis: "7772", nisn: "0124588785", nama: "ADRIELL ALVARISNO NATALAGA", tmpt: "PONTIANAK", tgl: "2012-11-09", gender: "L", agama: "B", ayah: "NATALAGA", ibu: "MARIA", dom: "0", pkjA: "I", pkjI: "K", pdkA: "C", pdkI: "C", pghA: "C", pghI: "A", alamat: "JL. KEBANGKITAN NASIONAL GG. BANTILANKARYA, RT. 1, RW. 4, KEL. BATU LAYANG, KEC. PONTIANAK UTARA", saudar: 0, sttb: 0, thn: 0 },
+    { kelas: "VII C", nis: "7773", nisn: "0137942439", nama: "ALVIN PRATISTA AGNI", tmpt: "PONTIANAK", tgl: "2013-04-09", gender: "L", agama: "D", ayah: "AGNI", ibu: "LISA", dom: "0", pkjA: "G", pkjI: "A", pdkA: "A", pdkI: "D", pghA: "C", pghI: "A", alamat: "GG. TELUK SAHANG 2, RT. 5, RW. 3, KEL. SIANTAN HILIR, KEC. PONTIANAK UTARA", saudar: 0, sttb: 0, thn: 0 },
+    { kelas: "VII C", nis: "7774", nisn: "0113226993", nama: "DODI", tmpt: "PONTIANAK", tgl: "2012-05-15", gender: "L", agama: "A", ayah: "SUPRI", ibu: "SITI", dom: "0", pkjA: "H", pkjI: "K", pdkA: "C", pdkI: "C", pghA: "D", pghI: "A", alamat: "JALAN PADAT KARYA KOMPLEK DIDIS PERMAI 6", saudar: 0, sttb: 0, thn: 0 }
 ];
 
 let masterKode = {
@@ -59,13 +60,13 @@ function renderTable8355(data) {
             <td>${row.kelas}</td>
             <td>${row.nis}</td>
             <td>${row.nisn}</td>
-            <td><strong>${row.nama}</strong></td>
-            <td>${row.tmpt}</td>
+            <td class="text-left-uppercase"><strong>${row.nama.toUpperCase()}</strong></td>
+            <td>${row.tmpt.toUpperCase()}</td>
             <td>${row.tgl}</td>
             <td><strong>${row.gender}</strong></td>
             <td>${row.agama}</td>
-            <td>${row.ayah}</td>
-            <td>${row.ibu}</td>
+            <td>${row.ayah.toUpperCase()}</td>
+            <td>${row.ibu.toUpperCase()}</td>
             <td>${row.dom}</td>
             <td>${row.pkjA}</td>
             <td>${row.pkjI}</td>
@@ -73,7 +74,7 @@ function renderTable8355(data) {
             <td>${row.pdkI}</td>
             <td>${row.pghA}</td>
             <td>${row.pghI}</td>
-            <td>${row.alamat}</td>
+            <td class="text-left-uppercase">${row.alamat.toUpperCase()}</td>
             <td>${row.saudar}</td>
             <td>${row.sttb}</td>
             <td>${row.thn}</td>
@@ -86,16 +87,16 @@ function renderTable8355(data) {
     document.getElementById("countTotal").innerText = data.length;
 }
 
-// FUNGSI UPDATE PRATINJAU LANGSUNG (LIVE PREVIEW)
+// FUNGSI UPDATE PRATINJAU LANGSUNG (LIVE PREVIEW HASIL KAPITAL & RATA KIRI)
 function updatePreview() {
     const previewRow = document.getElementById("previewRow");
     if (!previewRow) return;
 
-    const kelas = document.getElementById("inKelas").value.trim() || "-";
+    const kelas = document.getElementById("inKelas").value.trim().toUpperCase() || "-";
     const nis = document.getElementById("inNIS").value.trim() || "-";
     const nisn = document.getElementById("inNISN").value.trim() || "-";
     const nama = document.getElementById("inNama").value.trim().toUpperCase() || "[NAMA PESERTA DIDIK]";
-    const tmpt = document.getElementById("inTempatLahir").value.trim() || "-";
+    const tmpt = document.getElementById("inTempatLahir").value.trim().toUpperCase() || "-";
     const tgl = document.getElementById("inTglLahir").value || "-";
     const gender = document.getElementById("inGender").value || "L";
     const agama = document.getElementById("inAgama").value || "-";
@@ -107,7 +108,7 @@ function updatePreview() {
     const pdkI = document.getElementById("inPdkIbu").value || "-";
     const pghA = document.getElementById("inPghAyah").value || "-";
     const pghI = document.getElementById("inPghIbu").value || "-";
-    const alamat = document.getElementById("inAlamat").value.trim() || "-";
+    const alamat = document.getElementById("inAlamat").value.trim().toUpperCase() || "-";
     const saudar = document.getElementById("inSaudara").value || "0";
     const sttb = document.getElementById("inSTTB").value.trim() || "0";
     const thn = document.getElementById("inTahun").value.trim() || "0";
@@ -117,7 +118,7 @@ function updatePreview() {
         <td>${kelas}</td>
         <td>${nis}</td>
         <td>${nisn}</td>
-        <td><strong>${nama}</strong></td>
+        <td class="text-left-uppercase"><strong>${nama}</strong></td>
         <td>${tmpt}</td>
         <td>${tgl}</td>
         <td><strong>${gender}</strong></td>
@@ -131,7 +132,7 @@ function updatePreview() {
         <td>${pdkI}</td>
         <td>${pghA}</td>
         <td>${pghI}</td>
-        <td>${alamat}</td>
+        <td class="text-left-uppercase">${alamat}</td>
         <td>${saudar}</td>
         <td>${sttb}</td>
         <td>${thn}</td>
@@ -193,11 +194,11 @@ function handleSaveSiswa(event) {
     const index = parseInt(document.getElementById("editIndex").value);
 
     const dataObj = {
-        kelas: document.getElementById("inKelas").value.trim(),
+        kelas: document.getElementById("inKelas").value.trim().toUpperCase(),
         nis: document.getElementById("inNIS").value.trim(),
         nisn: document.getElementById("inNISN").value.trim(),
         nama: document.getElementById("inNama").value.trim().toUpperCase(),
-        tmpt: document.getElementById("inTempatLahir").value.trim(),
+        tmpt: document.getElementById("inTempatLahir").value.trim().toUpperCase(),
         tgl: document.getElementById("inTglLahir").value,
         gender: document.getElementById("inGender").value,
         agama: document.getElementById("inAgama").value,
@@ -210,7 +211,7 @@ function handleSaveSiswa(event) {
         pdkI: document.getElementById("inPdkIbu").value,
         pghA: document.getElementById("inPghAyah").value,
         pghI: document.getElementById("inPghIbu").value,
-        alamat: document.getElementById("inAlamat").value.trim(),
+        alamat: document.getElementById("inAlamat").value.trim().toUpperCase(),
         saudar: document.getElementById("inSaudara").value || "0",
         sttb: document.getElementById("inSTTB").value.trim() || "0",
         thn: document.getElementById("inTahun").value.trim() || "0"
