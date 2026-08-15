@@ -3,203 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Data Nominatif Siswa (Form 8355)</title>
+    <title>Format 8355 - Data Nominatif Siswa</title>
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <div class="app-layout">
-        <!-- SIDEBAR UTAMA -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">
-                <h2>APLIKASI DATA SEKOLAH</h2>
-                <p>Modul Utama Format 8355</p>
+    <header>
+        <div class="header-title">
+            <h1>FORMAT DATA NOMINATIF SISWA (8355)</h1>
+            <p>Sistem Administrasi Data Induk Siswa Terpadu</p>
+        </div>
+        <div class="header-actions">
+            <!-- HANYA 2 ICON: PRINT & SAVE -->
+            <button class="btn-action" onclick="printPage()">
+                <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                Cetak Format 8355
+            </button>
+            <button class="btn-action" onclick="saveData()">
+                <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Simpan Data
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- FILTER BAR -->
+        <div class="filter-panel">
+            <div class="filter-group">
+                <label for="filterKelas">Filter Kelas:</label>
+                <select id="filterKelas" onchange="applyFilters()">
+                    <option value="ALL">Semua Kelas</option>
+                    <option value="VII C">VII C</option>
+                    <option value="VII A">VII A</option>
+                    <option value="VII B">VII B</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterGender">Jenis Kelamin:</label>
+                <select id="filterGender" onchange="applyFilters()">
+                    <option value="ALL">Semua (L & P)</option>
+                    <option value="L">Laki-Laki (L)</option>
+                    <option value="P">Perempuan (P)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="searchKeyword">Cari Nama / NISN:</label>
+                <input type="text" id="searchKeyword" placeholder="Ketik NISN atau Nama..." onkeyup="applyFilters()">
+            </div>
+        </div>
+
+        <!-- KPI SUMMARY GENDER REKAP -->
+        <div class="kpi-grid">
+            <div class="kpi-card blue">
+                <div class="kpi-label">Siswa Laki-Laki (L)</div>
+                <div class="kpi-value" id="countLaki">0</div>
+                <div class="kpi-subtext">Peserta Didik Terdaftar</div>
+            </div>
+            <div class="kpi-card amber">
+                <div class="kpi-label">Siswa Perempuan (P)</div>
+                <div class="kpi-value" id="countPerempuan">0</div>
+                <div class="kpi-subtext">Peserta Didik Terdaftar</div>
+            </div>
+            <div class="kpi-card green">
+                <div class="kpi-label">Total Peserta Didik</div>
+                <div class="kpi-value" id="countTotal">0</div>
+                <div class="kpi-subtext">Akumulasi Format 8355</div>
+            </div>
+        </div>
+
+        <!-- FORM INPUT ENTRY FORMAT 8355 -->
+        <div class="card-box" style="margin-bottom: 24px;">
+            <div class="card-header">
+                <h2>Form Entry Input Data Siswa (Format 8355)</h2>
+            </div>
+            <form id="form8355" onsubmit="handleAddSiswa(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Kelas</label>
+                        <input type="text" id="inKelas" placeholder="Contoh: VII C" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NIS</label>
+                        <input type="text" id="inNIS" placeholder="Contoh: 7772" required>
+                    </div>
+                    <div class="form-group">
+                        <label>NISN</label>
+                        <input type="text" id="inNISN" placeholder="Contoh: 0124588785" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama Peserta Didik</label>
+                        <input type="text" id="inNama" placeholder="Nama Lengkap Siswa" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" id="inTempatLahir" placeholder="Contoh: Pontianak" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="inTglLahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label>L/P</label>
+                        <select id="inGender" required>
+                            <option value="L">Laki-Laki (L)</option>
+                            <option value="P">Perempuan (P)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Agama (Kode)</label>
+                        <select id="inAgama" required>
+                            <option value="A">A - Islam</option>
+                            <option value="B">B - Katolik</option>
+                            <option value="C">C - Kristen</option>
+                            <option value="D">D - Budha</option>
+                            <option value="E">E - Hindu</option>
+                            <option value="F">F - Kong Hu Chu</option>
+                            <option value="G">G - Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pekerjaan Ayah (Kode)</label>
+                        <input type="text" id="inPkjAyah" placeholder="A s/d L (Contoh: H)" maxLength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pekerjaan Ibu (Kode)</label>
+                        <input type="text" id="inPkjIbu" placeholder="A s/d L (Contoh: K)" maxLength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pendidikan Ayah (Kode)</label>
+                        <input type="text" id="inPdkAyah" placeholder="A s/d I (Contoh: C)" maxLength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pendidikan Ibu (Kode)</label>
+                        <input type="text" id="inPdkIbu" placeholder="A s/d I (Contoh: C)" maxLength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Ayah (Kode)</label>
+                        <input type="text" id="inPghAyah" placeholder="A s/d F (Contoh: C)" maxLength="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Ibu (Kode)</label>
+                        <input type="text" id="inPghIbu" placeholder="A s/d F (Contoh: A)" maxLength="1" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Alamat Lengkap</label>
+                        <input type="text" id="inAlamat" placeholder="Alamat Jalan, RT/RW, Kel/Kec..." required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="reset" class="btn-reset">Reset Form</button>
+                    <button type="submit" class="btn-submit">Tambahkan ke Format 8355</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- TABEL DATA 8355 PERSISI -->
+        <div class="card-box">
+            <div class="card-header">
+                <h2>LEMBAR INDUK SISWA FORMAT 8355</h2>
+            </div>
+            <div class="table-wrapper">
+                <table class="table-8355">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">NO</th>
+                            <th rowspan="2">KELAS</th>
+                            <th rowspan="2">NIS</th>
+                            <th rowspan="2">NISN</th>
+                            <th rowspan="2">NAMA PESERTA DIDIK</th>
+                            <th rowspan="2">TEMPAT LAHIR</th>
+                            <th rowspan="2">TANGGAL LAHIR</th>
+                            <th rowspan="2">L/P</th>
+                            <th rowspan="2">AGAMA</th>
+                            <th colspan="2">NAMA ORANG TUA</th>
+                            <th rowspan="2">DOMISILI</th>
+                            <th colspan="2">PEKERJAAN</th>
+                            <th colspan="2">PENDIDIKAN</th>
+                            <th colspan="2">PENGHASILAN</th>
+                            <th rowspan="2">ALAMAT</th>
+                            <th rowspan="2">JLH SAUDARA</th>
+                            <th rowspan="2">NO STTB</th>
+                            <th rowspan="2">TAHUN</th>
+                        </tr>
+                        <tr>
+                            <th>AYAH</th>
+                            <th>IBU</th>
+                            <th>AYAH</th>
+                            <th>IBU</th>
+                            <th>AYAH</th>
+                            <th>IBU</th>
+                            <th>AYAH</th>
+                            <th>IBU</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody8355">
+                        <!-- Diisi via JavaScript -->
+                    </tbody>
+                </table>
             </div>
 
-            <nav class="sidebar-nav">
-                <div class="nav-section-label">MODUL SHEET 8355</div>
-                <button class="nav-item active" onclick="switchTab('nominatif')">Data Nominatif Siswa (8355)</button>
-                <button class="nav-item" onclick="switchTab('rekapitulasi')">Rekapitulasi L / P per Kelas</button>
-                <button class="nav-item" onclick="switchTab('mutasi')">Catatan Mutasi Siswa</button>
-            </nav>
-        </aside>
-
-        <!-- KONTEN UTAMA -->
-        <main class="main-content">
-            <!-- HEADER -->
-            <header>
-                <div class="header-title">
-                    <h1 id="pageTitle">Laporan Bulanan Data Siswa (Format 8355)</h1>
-                    <p id="pageSubTitle">Rekapitulasi Nominatif Siswa & Statistik Operasional Sekolah</p>
-                </div>
-                <div class="header-actions">
-                    <!-- HANYA ICON PRINT & SAVE -->
-                    <button class="btn-action" onclick="printPage()">
-                        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-                        Cetak Format 8355
-                    </button>
-                    <button class="btn-action" onclick="saveData()">
-                        <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-                        Simpan Data
-                    </button>
-                </div>
-            </header>
-
-            <div class="container">
-                <!-- VIEW 1: DATA NOMINATIF 8355 -->
-                <div id="view-nominatif" class="tab-view active">
-                    
-                    <!-- FILTER DATA SISWA -->
-                    <div class="filter-panel">
-                        <div class="filter-group">
-                            <label for="filterKelas">Filter Kelas / Rombel:</label>
-                            <select id="filterKelas" onchange="applyFilters()">
-                                <option value="ALL">Semua Kelas</option>
-                                <option value="Kelas X-A">Kelas X-A</option>
-                                <option value="Kelas X-B">Kelas X-B</option>
-                                <option value="Kelas XI-A">Kelas XI-A</option>
-                                <option value="Kelas XII-A">Kelas XII-A</option>
-                            </select>
+            <!-- FOOTER KETERANGAN KODE & LEMBAR PENGESAHAN -->
+            <div class="footer-8355">
+                <div class="kode-legend">
+                    <h4>KETERANGAN KODE:</h4>
+                    <div class="legend-grid">
+                        <div>
+                            <strong>AGAMA:</strong><br>
+                            A = Islam, B = Katolik, C = Kristen, D = Budha, E = Hindu, F = Kong Hu Chu, G = Lainnya
                         </div>
-
-                        <div class="filter-group">
-                            <label for="filterGender">Jenis Kelamin:</label>
-                            <select id="filterGender" onchange="applyFilters()">
-                                <option value="ALL">Semua (L & P)</option>
-                                <option value="L">Laki-Laki (L)</option>
-                                <option value="P">Perempuan (P)</option>
-                            </select>
+                        <div>
+                            <strong>PENDIDIKAN:</strong><br>
+                            A = SD/MI/Paket A, B = SMP/MTs/Paket B, C = SMA/MA/SMK/Paket C, D = D1, E = D2, F = D3, G = D4/S1, H = S2, I = S3
                         </div>
-
-                        <div class="filter-group">
-                            <label for="searchKeyword">Cari Nama / NISN:</label>
-                            <input type="text" id="searchKeyword" placeholder="Ketik NISN atau Nama..." onkeyup="applyFilters()">
+                        <div>
+                            <strong>PEKERJAAN:</strong><br>
+                            A = Petani/Peternak, B = PNS, C = TNI/POLRI, D = Guru/Dosen, E = Dokter, F = Politikus, G = Pedagang/Wiraswasta, H = Pegawai Swasta, I = Buruh, J = Seni/Lukis/Artis/Sejenisnya, K = Tidak Bekerja, L = Lainnya
                         </div>
-                    </div>
-
-                    <!-- RINGKASAN STATISTIK 8355 -->
-                    <div class="kpi-grid">
-                        <div class="kpi-card blue">
-                            <div class="kpi-label">Total Peserta Didik</div>
-                            <div class="kpi-value" id="kpiTotalSiswa">0 Siswa</div>
-                            <div class="kpi-subtext">Akumulasi Format 8355</div>
+                        <div>
+                            <strong>PENGHASILAN:</strong><br>
+                            A = Tidak berpenghasilan, B = &lt;Rp 500.000, C = Rp 500.000 - Rp 999.999, D = Rp 1.000.000 - Rp 1.999.999, E = Rp 2.000.000 - Rp 4.999.999, F = &gt;= Rp 5.000.000
                         </div>
-                        <div class="kpi-card green">
-                            <div class="kpi-label">Siswa Laki-Laki (L)</div>
-                            <div class="kpi-value" id="kpiTotalLaki">0 Siswa</div>
-                            <div class="kpi-subtext">Rasio Gender Terdaftar</div>
-                        </div>
-                        <div class="kpi-card amber">
-                            <div class="kpi-label">Siswa Perempuan (P)</div>
-                            <div class="kpi-value" id="kpiTotalPerempuan">0 Siswa</div>
-                            <div class="kpi-subtext">Rasio Gender Terdaftar</div>
-                        </div>
-                        <div class="kpi-card">
-                            <div class="kpi-label">Status Form 8355</div>
-                            <div class="kpi-value" style="font-size: 1.1rem; color: var(--accent-green);">VALID & SELESAI</div>
-                            <div class="kpi-subtext">Terverifikasi Sistem</div>
-                        </div>
-                    </div>
-
-                    <!-- FORM INPUT SISWA FORMAT 8355 -->
-                    <div class="card-box" style="margin-bottom: 24px;">
-                        <div class="card-header">
-                            <h2>Form Input Data Siswa (Entry Sheet 8355)</h2>
-                        </div>
-                        <form id="formSiswa8355" onsubmit="handleAddSiswa(event)">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="inputNISN">NISN / NIS</label>
-                                    <input type="text" id="inputNISN" placeholder="Contoh: 0081234567" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputNama">Nama Lengkap Siswa</label>
-                                    <input type="text" id="inputNama" placeholder="Nama lengkap sesuai ijazah" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputGender">Jenis Kelamin</label>
-                                    <select id="inputGender" required>
-                                        <option value="L">Laki-Laki (L)</option>
-                                        <option value="P">Perempuan (P)</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputKelas">Tingkat / Kelas</label>
-                                    <select id="inputKelas" required>
-                                        <option value="Kelas X-A">Kelas X-A</option>
-                                        <option value="Kelas X-B">Kelas X-B</option>
-                                        <option value="Kelas XI-A">Kelas XI-A</option>
-                                        <option value="Kelas XII-A">Kelas XII-A</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputTTL">Tempat, Tanggal Lahir</label>
-                                    <input type="text" id="inputTTL" placeholder="Contoh: Pontianak, 12 Mei 2008" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputStatus">Status Siswa</label>
-                                    <select id="inputStatus" required>
-                                        <option value="AKTIF">AKTIF</option>
-                                        <option value="MUTASI MASUK">MUTASI MASUK</option>
-                                        <option value="MUTASI KELUAR">MUTASI KELUAR</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <button type="reset" class="btn-reset">Reset Form</button>
-                                <button type="submit" class="btn-submit">Simpan ke Sheet 8355</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- TABEL NOMINATIF SISWA 8355 -->
-                    <div class="card-box">
-                        <div class="card-header">
-                            <h2>Tabel Nominatif Siswa (Sheet 8355)</h2>
-                        </div>
-                        <div class="table-wrapper">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NISN / NIS</th>
-                                        <th>Nama Lengkap Siswa</th>
-                                        <th>L/P</th>
-                                        <th>Kelas / Rombel</th>
-                                        <th>Tempat, Tanggal Lahir</th>
-                                        <th>Status Siswa</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tableSiswaBody">
-                                    <!-- Diisi via JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- VIEW 2 & 3 UNTUK REKAP & MUTASI -->
-                <div id="view-rekapitulasi" class="tab-view">
-                    <div class="card-box">
-                        <div class="card-header"><h2>Rekapitulasi Jumlah Siswa per Kelas</h2></div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Menu rekapitulasi data statistik L/P otomatis dibuat dari Sheet 8355.</p>
                     </div>
                 </div>
 
-                <div id="view-mutasi" class="tab-view">
-                    <div class="card-box">
-                        <div class="card-header"><h2>Catatan Mutasi Siswa (Masuk / Keluar)</h2></div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Modul pencatatan mutasi siswa bulanan.</p>
+                <div class="signature-section">
+                    <div class="sig-box">
+                        <p>Mengetahui / telah diteliti kebenarannya:<br>Pengawas,</p>
+                        <br><br><br>
+                        <p><strong>SUWANTO, M.Pd.</strong><br>NIP. 1978040920101004</p>
+                    </div>
+                    <div class="sig-box">
+                        <p>Pontianak, 1 Agustus 2025<br>Kepala SMP Negeri 15 Kota Pontianak</p>
+                        <br><br><br>
+                        <p><strong>AUGUS PARDOSI, S.Pd., M.Mis</strong><br>NIP. 19690823 199601 1 002</p>
+                    </div>
+                    <div class="sig-box">
+                        <p><br>Wali Kelas</p>
+                        <br><br><br>
+                        <p><strong>Apriana, S.Pd.I.</strong><br>NIP. 19800407 200902 2 002</p>
                     </div>
                 </div>
-
             </div>
-        </main>
+
+        </div>
+
     </div>
 
     <script src="js/app.js"></script>
