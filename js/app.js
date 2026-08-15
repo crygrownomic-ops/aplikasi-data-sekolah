@@ -1,9 +1,6 @@
-// DATA MASTER CONTOH DARI TEMPLATE SHOWN IN SCREENSHOT
 const sample8355Data = [
     { kelas: "VII C", nis: "7772", nisn: "0124588785", nama: "ADRIELL ALVARISNO NATALAGA", tmpt: "Pontianak", tgl: "2012-11-09", gender: "L", agama: "B", ayah: "", ibu: "", dom: "0", pkjA: "I", pkjI: "K", pdkA: "C", pdkI: "C", pghA: "C", pghI: "A", alamat: "JL. KEBANGKITAN NASIONAL GG. BANTILANKARYA, Rt. 1, Rw. 4, Kel. Batu Layang, Kec. Pontianak Utara", saudar: 0, sttb: 0, thn: 0 },
-    { kelas: "VII C", nis: "7773", nisn: "0137942439", nama: "ALVIN PRATISTA AGNI", tmpt: "Pontianak", tgl: "2013-04-09", gender: "L", agama: "D", ayah: "", ibu: "", dom: "0", pkjA: "G", pkjI: "A", pdkA: "A", pdkI: "D", pghA: "C", pghI: "A", alamat: "GG. TELUK SAHANG 2, Rt. 5, Rw. 3, Kel. Siantan Hilir, Kec. Pontianak Utara", saudar: 0, sttb: 0, thn: 0 },
-    { kelas: "VII C", nis: "7774", nisn: "0113226993", nama: "ARIANTO", tmpt: "Karangan", tgl: "2011-06-02", gender: "P", agama: "B", ayah: "", ibu: "", dom: "0", pkjA: "H", pkjI: "K", pdkA: "G", pdkI: "E", pghA: "D", pghI: "A", alamat: "Jalan Sungai Selamat Dalam Gang Wakaf, Rt. 17, Rw. 1, Kel. Siantan Hilir, Kec. Pontianak Utara", saudar: 0, sttb: 0, thn: 0 },
-    { kelas: "VII C", nis: "7775", nisn: "3127996082", nama: "AURELLIA DELCIANI", tmpt: "Pontianak", tgl: "2012-08-09", gender: "P", agama: "B", ayah: "", ibu: "", dom: "0", pkjA: "H", pkjI: "K", pdkA: "G", pdkI: "C", pghA: "E", pghI: "A", alamat: "JL. KHATULISTIWA KM. 5 NO. 80, Rt. 1, Rw. 14, Kel. Batu Layang, Kec. Pontianak Utara", saudar: 0, sttb: 0, thn: 0 }
+    { kelas: "VII C", nis: "7773", nisn: "0137942439", nama: "ALVIN PRATISTA AGNI", tmpt: "Pontianak", tgl: "2013-04-09", gender: "L", agama: "D", ayah: "", ibu: "", dom: "0", pkjA: "G", pkjI: "A", pdkA: "A", pdkI: "D", pghA: "C", pghI: "A", alamat: "GG. TELUK SAHANG 2, Rt. 5, Rw. 3, Kel. Siantan Hilir, Kec. Pontianak Utara", saudar: 0, sttb: 0, thn: 0 }
 ];
 
 function renderTable8355(data) {
@@ -44,7 +41,6 @@ function renderTable8355(data) {
         tbody.appendChild(tr);
     });
 
-    // Update Counter KPI
     const totalLaki = data.filter(s => s.gender === 'L').length;
     const totalPerempuan = data.filter(s => s.gender === 'P').length;
 
@@ -81,12 +77,12 @@ function handleAddSiswa(event) {
         gender: document.getElementById("inGender").value,
         agama: document.getElementById("inAgama").value,
         ayah: "", ibu: "", dom: "0",
-        pkjA: document.getElementById("inPkjAyah").value.toUpperCase(),
-        pkjI: document.getElementById("inPkjIbu").value.toUpperCase(),
-        pdkA: document.getElementById("inPdkAyah").value.toUpperCase(),
-        pdkI: document.getElementById("inPdkIbu").value.toUpperCase(),
-        pghA: document.getElementById("inPghAyah").value.toUpperCase(),
-        pghI: document.getElementById("inPghIbu").value.toUpperCase(),
+        pkjA: document.getElementById("inPkjAyah").value,
+        pkjI: document.getElementById("inPkjIbu").value,
+        pdkA: document.getElementById("inPdkAyah").value,
+        pdkI: document.getElementById("inPdkIbu").value,
+        pghA: document.getElementById("inPghAyah").value,
+        pghI: document.getElementById("inPghIbu").value,
         alamat: document.getElementById("inAlamat").value.trim(),
         saudar: 0, sttb: 0, thn: 0
     };
@@ -94,11 +90,11 @@ function handleAddSiswa(event) {
     sample8355Data.push(newSiswa);
     applyFilters();
     document.getElementById("form8355").reset();
-    alert("Sistem: Siswa baru berhasil didaftarkan ke Format 8355!");
+    alert("Sistem: Data siswa berhasil ditambahkan dengan opsi Dropdown!");
 }
 
 function printPage() { window.print(); }
-function saveData() { alert("Sistem: Data Format 8355 berhasil disinkronkan."); }
+function saveData() { alert("Sistem: Data Format 8355 tersimpan."); }
 
 window.onload = () => {
     renderTable8355(sample8355Data);
